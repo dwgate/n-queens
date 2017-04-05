@@ -79,11 +79,18 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      //given the current row, iterate through all spaces
+        //if more than 1 item in the row
+          //there will be a conflict
+        //else no conflicts
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      //need to access the entire board wherever this is stored in the object
+        //i think can call hasRowConflictAt for each row?
+          //return true if we find any conflicts 
       return false; // fixme
     },
 
@@ -94,11 +101,19 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      //iterate throw the rows of the board
+        //if the current row has an item at colIndex, we'll add it to a holder arr
+      //if the holder has more than 1 item
+        //there is a conflict
       return false; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      //same as hasRowConflits
+
+        //iterate through a row/length of the row
+          //pass each col index to hasColConflictAt
       return false; // fixme
     },
 
@@ -109,11 +124,29 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      //not sure what the argument is - is it the index of the piece or 
+      //would it be any exterior(left/top)index where we check following pieces 
+      //down the maror diagonal
+
+      //either way...
+
+      //similar to other checks
+        //iterate through possibilities down the diagonal
+          //store found pieces in an array
+
+        //if the array has more than 1 item 
+          //there is a conflict
       return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      //i think this will dictate how hasmajordiagonalconflictat will run
+        //don't need to start completely at the bottom, and don't need to
+        //run the entire length of the top row
+
+      //i think we can iterate from bottom left ---top---through top row
+        //pass all indexes to hasmajrodiagonalconflictAt(index);
       return false; // fixme
     },
 
@@ -124,11 +157,13 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
+      //same as the major but iterating the opposite direction
       return false; // fixme
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+      //same as major but opposite direction
       return false; // fixme
     }
 
@@ -136,7 +171,10 @@
 
 
   });
+  
 
+  // what is this for..?
+  //only called by the backbone to make the board i think
   var makeEmptyMatrix = function(n) {
     return _(_.range(n)).map(function() {
       return _(_.range(n)).map(function() {
