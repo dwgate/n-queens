@@ -17,7 +17,6 @@
         this.set('n', params.length);
       }
     },
-
     rows: function() {
       return _(_.range(this.get('n'))).map(function(rowIndex) {
         return this.get(rowIndex);
@@ -79,15 +78,39 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      var content = 0;
+      for (var i = 0; i < rowIndex.length; i++) {
+        if (rowIndex[i] !== 0) {
+          content ++;
+        }
+      }
+      return (content > 1) ? true : false;
+
       //given the current row, iterate through all spaces
         //if more than 1 item in the row
           //there will be a conflict
         //else no conflicts
-      return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      console.log(this.attributes);
+      //this.attributes contains the arrays of the board at indexed keys
+        //THIS^ is where the matrix is created and stored
+
+      //get gets the value held at said index:2
+        //get grabs the value held at "index" of 2 - 2 is the key
+      var length = this.get('n');
+      for (var i = 0; i < length; i++) {
+        console.log('this.get i is: ' + this.get(i));
+        if (Board.prototype.hasRowConflictAt(this.get(i)) ) {
+          return true;
+        }
+        // console.log(this.get(i));
+      }
+      return false;
+
+
       //need to access the entire board wherever this is stored in the object
         //i think can call hasRowConflictAt for each row?
           //return true if we find any conflicts 
