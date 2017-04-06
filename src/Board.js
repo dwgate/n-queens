@@ -79,42 +79,27 @@
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
       var content = 0;
+
       for (var i = 0; i < rowIndex.length; i++) {
         if (rowIndex[i] !== 0) {
           content ++;
         }
       }
-      return (content > 1) ? true : false;
 
-      //given the current row, iterate through all spaces
-        //if more than 1 item in the row
-          //there will be a conflict
-        //else no conflicts
+      return (content > 1) ? true : false;
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      console.log(this.attributes);
-      //this.attributes contains the arrays of the board at indexed keys
-        //THIS^ is where the matrix is created and stored
-
-      //get gets the value held at said index:2
-        //get grabs the value held at "index" of 2 - 2 is the key
       var length = this.get('n');
+
       for (var i = 0; i < length; i++) {
-        console.log('this.get i is: ' + this.get(i));
-        if (Board.prototype.hasRowConflictAt(this.get(i)) ) {
+        if (this.hasRowConflictAt(this.get(i)) ) {
           return true;
         }
-        // console.log(this.get(i));
       }
+
       return false;
-
-
-      //need to access the entire board wherever this is stored in the object
-        //i think can call hasRowConflictAt for each row?
-          //return true if we find any conflicts 
-      return false; // fixme
     },
 
 
@@ -124,20 +109,30 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      //iterate throw the rows of the board
-        //if the current row has an item at colIndex, we'll add it to a holder arr
-      //if the holder has more than 1 item
-        //there is a conflict
-      return false; // fixme
+      var rows = this.get('n')-1;
+      var content = 0;
+
+      for (var i = 0; i < rows; i++) {
+        if (this.get(i)[colIndex] === 1) {
+          content++;
+        }
+      }
+
+      return content > 1 ? true : false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      //same as hasRowConflits
+      var rows = this.get(0).length;
+      var conflicts = 0;
 
-        //iterate through a row/length of the row
-          //pass each col index to hasColConflictAt
-      return false; // fixme
+      for (var i = 0; i < rows; i++) {
+        if( this.hasColConflictAt(i) ) {
+          conflicts++;
+        }
+      }
+
+      return conflicts > 0 ? true: false;
     },
 
 
@@ -147,30 +142,34 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      //not sure what the argument is - is it the index of the piece or 
-      //would it be any exterior(left/top)index where we check following pieces 
-      //down the maror diagonal
+      var row = majorDiagonalColumnIndexAtFirstRow[0];
+      var columnIndex = majorDiagonalColumnIndexAtFirstRow[1];
+      var conflicts = 0;
 
-      //either way...
+      for (var i = row; row < this.get('n'); row++) {
+        if (this.get(row)[columnIndex] && this.get(row)[columnIndex] > 0) {
+          conflicts++;
+        }
+        columnIndex = columnIndex + 1;
+      }
 
-      //similar to other checks
-        //iterate through possibilities down the diagonal
-          //store found pieces in an array
-
-        //if the array has more than 1 item 
-          //there is a conflict
-      return false; // fixme
+      return conflicts > 1 ? true : false;  
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      //i think this will dictate how hasmajordiagonalconflictat will run
-        //don't need to start completely at the bottom, and don't need to
-        //run the entire length of the top row
+      var length = this.get('n');
+      var conflicts = 0;
 
-      //i think we can iterate from bottom left ---top---through top row
-        //pass all indexes to hasmajrodiagonalconflictAt(index);
-      return false; // fixme
+      for (var i = 0; i < length; i++) {
+        for (var j = 0; j < this.get(i).length; j++) {
+          if (this.hasMajorDiagonalConflictAt([i, j])) {
+            conflicts++;
+          }
+        }
+      }
+
+      return conflicts > 0 ? true : false;
     },
 
 
@@ -180,16 +179,35 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      //same as the major but iterating the opposite direction
-      return false; // fixme
+      var row = minorDiagonalColumnIndexAtFirstRow[0];
+      var columnIndex = minorDiagonalColumnIndexAtFirstRow[1];
+      var conflicts = 0;
+
+      for (var i = row; row < this.get('n'); row++) {
+        if (this.get(row)[columnIndex] && this.get(row)[columnIndex] > 0) {
+          conflicts++;
+        }
+        columnIndex = columnIndex - 1;
+      }
+
+      return conflicts > 1 ? true : false;  
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      //same as major but opposite direction
-      return false; // fixme
-    }
+      var length = this.get('n');
+      var count = 0;
 
+      for ( var i = 0 ; i < length; i++) {
+        for ( var j = 0; j < length; j++) {
+          if (this.hasMinorDiagonalConflictAt([i, j])) {
+            count++;
+          }
+        }
+      }
+      
+      return count > 0 ? true : false;
+    }
     /*--------------------  End of Helper Functions  ---------------------*/
 
 
