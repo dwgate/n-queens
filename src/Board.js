@@ -224,9 +224,19 @@
       // return conflicts > 1 ? true : false;  
     },
 
+    findLatestPiece: function() {
+      for (var i = (this.get('n') - 1); i >= 0; i--) {
+        for (var j = (this.get('n') -1); j >= 0; j--) {
+          if (this.get(i)[j] === 1) {
+            return [i, j];
+          }
+        }
+      }
+    },
+
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      for (var i = 0; i < this.get('n')*2; i++) {
+      for (var i = 0; i < (this.get('n')*2 ); i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
