@@ -77,6 +77,7 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
+
     hasRowConflictAt: function(rowIndex) {
       var content = 0;
 
@@ -112,7 +113,7 @@
       var rows = this.get('n');
       var content = 0;
 
-      for (var i = 0; i < rows - 1; i++) {
+      for (var i = 0; i < rows; i++) {
         if (this.get(i)[colIndex] === 1) {
           content++;
         }
@@ -123,8 +124,7 @@
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      debugger;
-      var rows = this.get(0).length;
+      var rows = this.get('n');
       var conflicts = 0;
 
       for (var i = 0; i < rows; i++) {
@@ -133,7 +133,7 @@
         }
       }
 
-      return conflicts > 0 ? true: false;
+      return conflicts > 0 ? true : false;
     },
 
 
@@ -263,3 +263,50 @@
   };
 
 }());
+
+
+
+
+// _getFirstRowColumnIndexForMinorDiagonalOn and _getFirstRowColumnIndexForMajorDiagonalOn
+  //takes row and column indexes
+  //returns a single number from where to start the diagonal conflict search
+
+// _isInBounds 
+  //takes row/col indexes
+  //returns a single number from where to start the diagonal conflict search
+
+
+// hasAnyColConflicts
+  // returns true or false if there are ANY column conflicts
+
+//hasAnyMajorDiagonalConflicts and hasAnyMinorDiagonalConflics
+  // returns true or false if ther are ANY diagonal conflicts
+
+//hasAnyQueenConflictsOn
+  // takes row/column indexes 
+  //checks if there are row/col/diagonal
+  //checks if there are major or minor diagonal conflicts from current location
+
+//hasAnyQueenConflicts
+  //checks minor/major diagonal conflicts
+  //checks rook conflicts
+
+// hasAnyRookConflicts
+  //no arguments
+  //checks row and col conflicts
+
+// hasAnyRowConflicts
+  // checks ANY row conflicts 
+
+// hasAnyColConflictAt
+  //takes column index
+  //checks for conflicts from index?
+
+//hasMajor/MinorDiagonsConflictAt
+  //takes a integer to begin diagonal search from for a specific row
+
+//hasRoConflictAt
+  //checks conflict for a given row
+
+// rows
+  //returns an array of rows 
