@@ -20,7 +20,7 @@ describe('solvers', function() {
 
   });
 
-  xdescribe('countNRooksSolutions()', function() {
+  describe('countNRooksSolutions()', function() {
 
     it('finds the number of valid solutions for n of 1-8', function() {
       _.range(1, 9).map(function(n) {
@@ -33,7 +33,7 @@ describe('solvers', function() {
 
   });
 
-  xdescribe('findNQueensSolution()', function() {
+  describe('findNQueensSolution()', function() {
 
     it('finds a valid solution for n of 0-7', function() {
       // Skip 2 and 3 because they have no solution.
