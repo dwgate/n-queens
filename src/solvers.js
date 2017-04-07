@@ -1,4 +1,4 @@
-/*           _
+ /*           _
    ___  ___ | |_   _____ _ __ ___
   / __|/ _ \| \ \ / / _ \ '__/ __|
   \__ \ (_) | |\ V /  __/ |  \__ \
@@ -104,27 +104,40 @@ window.findNQueensSolution = function(n) {
     var row = pieceCount;
 
     if (pieceCount === n) {
-      return board;
+      var matrix = [];
+      for (var i = 0; i < n; i++) {
+        var row = board.get(i);
+        matrix.push(row);
+      }
+      console.log ('solution found!');
+      console.log('board size is: ' + n + ' ' + JSON.stringify(matrix));
+      return matrix;
     }
 
     for (var i = 0; i < n; i++) {
       board.togglePiece(row, i);
 
       if ( !board.hasAnyQueensConflicts() ) {
-        findSolutions( board, (pieceCount + 1) );
+        findSolution( board, (pieceCount + 1) );
       }
       board.togglePiece(row, i);
     }
   }
 
+
+  if (n === 0) {
+    solution.push([])
+  }
+
   for (var i = 0; i < n; i++) {
     var initialBoard = new Board({n: n});
+    console.log('attempting for n size of : '  + n);
     initialBoard.togglePiece(0, i);
     solution.push( findSolution(initialBoard, 1) );
   }
 
-  // console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution[0]));
-  return solution[0];
+  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution[0]));
+  return solution.length > 0 ? solution[0] : [];
  
 };
 
