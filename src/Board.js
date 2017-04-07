@@ -154,19 +154,6 @@
       }
 
       return counter > 1 ? true : false;
-
-      // var row = majorDiagonalColumnIndexAtFirstRow[0];
-      // var columnIndex = majorDiagonalColumnIndexAtFirstRow[1];
-      // var conflicts = 0;
-
-      // for (var i = row; row < this.get('n'); row++) {
-      //   if (this.get(row)[columnIndex] && this.get(row)[columnIndex] > 0) {
-      //     conflicts++;
-      //   }
-      //   columnIndex = columnIndex + 1;
-      // }
-
-      // return conflicts > 1 ? true : false;  
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -176,19 +163,8 @@
           return true;
         }
       }
+
       return false;
-      // var length = this.get('n');
-      // var conflicts = 0;
-
-      // for (var i = 0; i < length; i++) {
-      //   for (var j = 0; j < this.get(i).length; j++) {
-      //     if (this.hasMajorDiagonalConflictAt([i, j])) {
-      //       conflicts++;
-      //     }
-      //   }
-      // }
-
-      // return conflicts > 0 ? true : false;
     },
 
 
@@ -209,19 +185,6 @@
       }
 
       return counter > 1 ? true : false;
-
-      // var row = minorDiagonalColumnIndexAtFirstRow[0];
-      // var columnIndex = minorDiagonalColumnIndexAtFirstRow[1];
-      // var conflicts = 0;
-
-      // for (var i = row; row < this.get('n'); row++) {
-      //   if (this.get(row)[columnIndex] && this.get(row)[columnIndex] > 0) {
-      //     conflicts++;
-      //   }
-      //   columnIndex = columnIndex - 1;
-      // }
-
-      // return conflicts > 1 ? true : false;  
     },
 
     findLatestPiece: function() {
@@ -241,20 +204,8 @@
           return true;
         }
       }
+      
       return false;
-
-      // var length = this.get('n');
-      // var count = 0;
-
-      // for ( var i = 0 ; i < length; i++) {
-      //   for ( var j = 0; j < length; j++) {
-      //     if (this.hasMinorDiagonalConflictAt([i, j])) {
-      //       count++;
-      //     }
-      //   }
-      // }
-
-      // return count > 0 ? true : false;
     }
     /*--------------------  End of Helper Functions  ---------------------*/
 
