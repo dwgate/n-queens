@@ -150,63 +150,89 @@ window.findNQueensSolution = function(n) {
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
   var solutionCount = 0;
-  debugger;
+  if (n === 0) { return 1;}
 
-  var findSolutions = function(arrOfBoards, pieceCount) {
-    var successfulBoards = [];
-    if (pieceCount === n) {
-      arrOfBoards.forEach(function(board) {
-        //might have to be the arrays that make up the board
-        console.log('adding: ' + JSON.stringify(board));
-        solutionCount++;
-      });
+  var findSolutions = function(board, pieceCount) {
+    var count = 0;
+
+    var row = pieceCount;
     
-    } else {
-      arrOfBoards.forEach(function(board) {
-        var coordinates;
-        if (successfulBoards.length > 0) {
-          coordinates = successfulBoards[successfulBoards.length -1].findLatestPiece();
-        } else {
-          coordinates = board.findLatestPiece();
-        }
-        //add method to board to find most recently placed piece
-        //col/row start from the most recently placed piece
-        var row = coordinates[0] + 1;
-        var col = coordinates[1] + 2;
-
-        for (var i = row; i < n; i++) {
-          for (var j = col; j < n; j++) {
-            board.togglePiece(i, j);
-            if (board.hasAnyQueensConflicts()) {
-              board.togglePiece(i, j);
-            } else {
-              var success = [];
-
-              board.rows().forEach(function(row) {
-                var x = row.slice(0);
-                success.push(x);
-              });
-
-              successfulBoards.push( new Board(success) );
-              board.togglePiece(i, j);
-            }
-          }
-        }
-      });
-    return findSolutions(successfulBoards, (pieceCount + 1))
+    if (pieceCount === n) {
+      return 1;
     }
+
+    for (var i = 0; i < n; i++) {
+      board.togglePiece(row, i);
+      
+      if ( !board.hasAnyQueensConflicts() ) {
+        count += findSolutions( board, (pieceCount + 1) );
+      } 
+
+      board.togglePiece(row, i);
+    }
+    return count;
   };
 
+
   for (var i = 0; i < n; i++) {
-    for (var j = 0; j < n; j++) {
-      var initialBoard = new Board({n: n});
-      initialBoard.togglePiece(i, j);
-      findSolutions([initialBoard], 0);
-    }
+    var initialBoard = new Board({n: n});
+    initialBoard.togglePiece(0, i);
+    solutionCount += findSolutions(initialBoard, 1);
   }
+
   console.log('solutions: ' + solutionCount);
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
+
+
+
+
+
+
+    // var successfulBoards = [];
+    // if (pieceCount === n) {
+    //   arrOfBoards.forEach(function(board) {
+    //     //might have to be the arrays that make up the board
+    //     console.log('adding: ' + JSON.stringify(board));
+    //     solutionCount++;
+    //   });
+    
+    // } else {
+    //   arrOfBoards.forEach(function(board) {
+    //     var coordinates;
+    //     if (successfulBoards.length > 0) {
+    //       coordinates = successfulBoards[successfulBoards.length -1].findLatestPiece();
+    //     } else {
+    //       coordinates = board.findLatestPiece();
+    //     }
+    //     //add method to board to find most recently placed piece
+    //     //col/row start from the most recently placed piece
+    //     var row = coordinates[0];
+    //     var col = coordinates[1];
+
+    //     for (var i = row; i < n; i++) {
+    //       for (var j = col; j < n; j++) {
+    //         board.togglePiece(i, j);
+    //         debugger;
+    //         //these coordinates do'nt iterate through the matrix completely, they will skip
+    //         if (board.hasAnyQueensConflicts()) {
+    //           board.togglePiece(i, j);
+    //         } else {
+    //           var success = [];
+
+    //           board.rows().forEach(function(row) {
+    //             var x = row.slice(0);
+    //             success.push(x);
+    //           });
+
+    //           successfulBoards.push( new Board(success) );
+    //           board.togglePiece(i, j);
+    //         }
+    //       }
+    //     }
+    //   });
+    // return findSolutions(successfulBoards, (pieceCount + 1))
+    // }
 
 
